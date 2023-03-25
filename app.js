@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 const {MONGOURL} = require('./config/keys')
 const cors = require('cors')
 
@@ -35,12 +35,19 @@ app.use(require('./routes/user'))
 //     })
 // }
 
+// app.use(express.json());
+// app.use(cors());
+// app.get("/",(req,res) =>{
+//     res.setHeader("Access-Control-Allow-Credentials","true");
+//     res.send("API is running..");
+// });
+
 app.use(express.json());
-app.use(cors());
-app.get("/",(req,res) =>{
-    res.setHeader("Access-Control-Allow-Credentials","true");
-    res.send("API is running..");
-});
+app.use(express.urlencoded({extended: false}));
+app.use(cors({
+    origin: ["http://localhost:3000", "https://insta-clone-24-m31j.onrender.com"],
+})
+);
 
 
 app.listen(PORT,()=>{
